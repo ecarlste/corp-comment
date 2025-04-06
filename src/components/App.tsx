@@ -35,7 +35,7 @@ function App() {
     fetchData();
   }, []);
 
-  const handleAddToList = (text: string) => {
+  const handleAddToList = async (text: string) => {
     const company = text
       .split(" ")
       .find((word) => word.startsWith("#"))
@@ -51,6 +51,18 @@ function App() {
     };
 
     setFeedbackItems([...feedbackItems, newFeedbackItem]);
+
+    await fetch(
+      "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
+      {
+        method: "POST",
+        body: JSON.stringify(newFeedbackItem),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   return (
