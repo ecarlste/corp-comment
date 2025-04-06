@@ -2,9 +2,11 @@ import { FeedbackItem } from "../lib/types";
 import FeedbackListItem from "./FeedbackListItem";
 import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import ErrorMessage from "./ErrorMessage";
 
 function FeedbackList() {
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,12 +17,19 @@ function FeedbackList() {
         const response = await fetch(
           "http://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
         );
+
+        if (!response.ok) {
+          throw new Error();
+        }
+
         const data = await response.json();
 
         setFeedbackItems(data.feedbacks);
-      } finally {
-        setIsLoading(false);
+      } catch {
+        setErrorMessage("Something went wrong.");
       }
+
+      setIsLoading(false);
     };
 
     fetchData();
@@ -29,6 +38,9 @@ function FeedbackList() {
   return (
     <ol className="feedback-list">
       {isLoading && <Spinner />}
+
+      {errorMessage && <ErrorMessage message={errorMessage} />}
+
       {feedbackItems.map((feedbackItem) => (
         <FeedbackListItem key={feedbackItem.id} feedbackItem={feedbackItem} />
       ))}
