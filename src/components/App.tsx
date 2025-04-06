@@ -9,6 +9,10 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+  const uniqueCompanies = [
+    ...new Set(feedbackItems.map((item) => item.company)),
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -76,7 +80,7 @@ function App() {
         handleAddToList={handleAddToList}
       />
 
-      <HashtagList />
+      <HashtagList companies={uniqueCompanies} />
     </div>
   );
 }

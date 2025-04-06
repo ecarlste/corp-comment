@@ -1,15 +1,15 @@
-function HashtagList() {
+type HashtagListProps = {
+  companies: string[];
+};
+
+function HashtagList({ companies }: HashtagListProps) {
   return (
     <ul className="hashtags">
-      <li>
-        <button>#Google</button>
-      </li>
-      <li>
-        <button>#Facebook</button>
-      </li>
-      <li>
-        <button>#Starbucks</button>
-      </li>
+      {companies.map((company) => (
+        <li key={company}>
+          <button>#{company}</button>
+        </li>
+      ))}
     </ul>
   );
 }
