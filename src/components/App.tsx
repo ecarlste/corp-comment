@@ -36,7 +36,7 @@ function App() {
   }, []);
 
   const handleAddToList = (text: string) => {
-    const companyName = text
+    const company = text
       .split(" ")
       .find((word) => word.startsWith("#"))
       ?.substring(1);
@@ -44,8 +44,8 @@ function App() {
     const newFeedbackItem: FeedbackItem = {
       id: new Date().getTime().toString(),
       upvoteCount: 0,
-      badgeLetter: companyName?.substring(0, 1).toUpperCase() || "",
-      companyName: companyName || "Unknown",
+      badgeLetter: company?.substring(0, 1).toUpperCase() || "",
+      company: company || "Unknown",
       text,
       daysAgo: 0,
     };
