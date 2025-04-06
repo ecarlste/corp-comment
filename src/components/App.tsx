@@ -8,7 +8,12 @@ function App() {
   const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedCompany, setSelectedCompany] = useState("");
 
+  const filteredFeedbackItems =
+    selectedCompany === ""
+      ? feedbackItems
+      : feedbackItems.filter((item) => item.company === selectedCompany);
   const uniqueCompanies = [
     ...new Set(feedbackItems.map((item) => item.company)),
   ];
@@ -69,18 +74,25 @@ function App() {
     );
   };
 
+  const handleSelectCompany = (company: string) => {
+    setSelectedCompany(company);
+  };
+
   return (
     <div className="app">
       <Footer />
 
       <Container
-        feedbackItems={feedbackItems}
+        feedbackItems={filteredFeedbackItems}
         isLoading={isLoading}
         errorMessage={errorMessage}
         handleAddToList={handleAddToList}
       />
 
-      <HashtagList companies={uniqueCompanies} />
+      <HashtagList
+        companies={uniqueCompanies}
+        handleSelectCompany={handleSelectCompany}
+      />
     </div>
   );
 }

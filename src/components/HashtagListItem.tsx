@@ -1,10 +1,11 @@
 type HashtagListItemProps = {
   company: string;
+  onSelectCompany: (company: string) => void;
 };
 
-function HashtagListItem({ company }: HashtagListItemProps) {
+function HashtagListItem({ company, onSelectCompany }: HashtagListItemProps) {
   return (
-    <li>
+    <li onClick={() => onSelectCompany(company)}>
       <button>#{company}</button>
     </li>
   );
