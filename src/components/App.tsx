@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Container from "./Container";
 import Footer from "./Footer";
 import HashtagList from "./HashtagList";
@@ -10,13 +10,17 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedCompany, setSelectedCompany] = useState("");
 
-  const filteredFeedbackItems =
-    selectedCompany === ""
-      ? feedbackItems
-      : feedbackItems.filter((item) => item.company === selectedCompany);
-  const uniqueCompanies = [
-    ...new Set(feedbackItems.map((item) => item.company)),
-  ];
+  const filteredFeedbackItems = useMemo(
+    () =>
+      selectedCompany === ""
+        ? feedbackItems
+        : feedbackItems.filter((item) => item.company === selectedCompany),
+    [feedbackItems, selectedCompany]
+  );
+  const uniqueCompanies = useMemo(
+    () => [...new Set(feedbackItems.map((item) => item.company))],
+    [feedbackItems]
+  );
 
   useEffect(() => {
     const fetchData = async () => {
