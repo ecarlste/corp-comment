@@ -1,14 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Container from "./Container";
 import Footer from "./Footer";
 import HashtagList from "./HashtagList";
 import { FeedbackItem } from "../lib/types";
+import { useFeedbackItems } from "../lib/hooks";
 
 function App() {
-  const [feedbackItems, setFeedbackItems] = useState<FeedbackItem[]>([]);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
   const [selectedCompany, setSelectedCompany] = useState("");
+  const { feedbackItems, setFeedbackItems, errorMessage, isLoading } =
+    useFeedbackItems();
 
   const filteredFeedbackItems = useMemo(
     () =>
@@ -21,32 +21,6 @@ function App() {
     () => [...new Set(feedbackItems.map((item) => item.company))],
     [feedbackItems]
   );
-
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await fetch(
-          "http://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
-        );
-
-        if (!response.ok) {
-          throw new Error();
-        }
-
-        const data = await response.json();
-
-        setFeedbackItems(data.feedbacks);
-      } catch {
-        setErrorMessage("Something went wrong.");
-      }
-
-      setIsLoading(false);
-    };
-
-    fetchData();
-  }, []);
 
   const handleAddToList = async (text: string) => {
     const company = text
