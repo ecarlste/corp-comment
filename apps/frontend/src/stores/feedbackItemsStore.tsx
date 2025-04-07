@@ -83,7 +83,7 @@ export const useFeedbackItemsStore = create<FeedbackItemsStore>((set, get) => ({
 
     try {
       const response = await fetch(
-        "http://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
+        "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
       );
 
       if (!response.ok) {
