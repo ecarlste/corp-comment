@@ -6,10 +6,10 @@ type FeedbackItemsStoreState = {
   isLoading: boolean;
   errorMessage: string;
   selectedCompany: string;
-  companyList: string[];
 };
 
 type FeedbackItemsStoreActions = {
+  getCompanyList: () => string[];
   getFilteredFeedbackItems: () => FeedbackItem[];
   addItemToList: (text: string) => Promise<void>;
   selectCompany: (company: string) => void;
@@ -23,7 +23,14 @@ export const useFeedbackItemsStore = create<FeedbackItemsStore>((set, get) => ({
   isLoading: false,
   errorMessage: "",
   selectedCompany: "",
-  companyList: [],
+  getCompanyList: () => {
+    const { feedbackItems } = get();
+
+    const companyList = Array.from(
+      new Set(feedbackItems.map((feedback: FeedbackItem) => feedback.company))
+    ).sort();
+    return companyList;
+  },
 
   getFilteredFeedbackItems: () => {
     const { feedbackItems, selectedCompany } = get();
@@ -88,11 +95,6 @@ export const useFeedbackItemsStore = create<FeedbackItemsStore>((set, get) => ({
       set(() => ({
         feedbackItems: data.feedbacks,
         errorMessage: "",
-        companyList: Array.from(
-          new Set(
-            data.feedbacks.map((feedback: FeedbackItem) => feedback.company)
-          )
-        ),
       }));
     } catch {
       set(() => ({

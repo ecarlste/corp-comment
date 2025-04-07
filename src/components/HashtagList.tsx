@@ -1,8 +1,11 @@
+import { useShallow } from "zustand/shallow";
 import { useFeedbackItemsStore } from "../stores/feedbackItemsStore";
 import HashtagListItem from "./HashtagListItem";
 
 function HashtagList() {
-  const companyList = useFeedbackItemsStore((state) => state.companyList);
+  const companyList = useFeedbackItemsStore(
+    useShallow((state) => state.getCompanyList())
+  );
   const selectCompany = useFeedbackItemsStore((state) => state.selectCompany);
 
   console.log("companyList", companyList);
