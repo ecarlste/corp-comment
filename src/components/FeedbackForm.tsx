@@ -2,10 +2,10 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { maxFeedbackLength } from "../lib/constants";
 
 type FeedbackFormProps = {
-  onAddToList: (text: string) => void;
+  onAddItemToList: (text: string) => void;
 };
 
-function FeedbackForm({ onAddToList }: FeedbackFormProps) {
+function FeedbackForm({ onAddItemToList }: FeedbackFormProps) {
   const [text, setText] = useState("");
   const [showValidIndicator, setShowValidIndicator] = useState(false);
   const [showInvalidIndicator, setShowInvalidIndicator] = useState(false);
@@ -32,7 +32,7 @@ function FeedbackForm({ onAddToList }: FeedbackFormProps) {
       return;
     }
 
-    onAddToList(text);
+    onAddItemToList(text);
     setText("");
   };
 
