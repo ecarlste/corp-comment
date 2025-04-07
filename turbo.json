@@ -10,6 +10,14 @@
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "db:gen": {
+      "dependsOn": [],
+      "outputs": []
+    },
+    "db:studio": {
+      "dependsOn": [],
+      "outputs": []
     }
   }
 }

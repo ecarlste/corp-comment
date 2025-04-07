@@ -3,7 +3,9 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "check": "turbo check",
-    "lint": "turbo lint"
+    "lint": "turbo lint",
+    "db:gen": "turbo db:gen",
+    "db:studio": "turbo db:studio"
   },
   "devDependencies": {
     "turbo": "^2.5.0"
