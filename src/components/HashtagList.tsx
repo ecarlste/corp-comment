@@ -8,8 +8,6 @@ function HashtagList() {
   );
   const selectCompany = useFeedbackItemsStore((state) => state.selectCompany);
 
-  console.log("companyList", companyList);
-
   return (
     <ul className="hashtags">
       {companyList.map((company) => (
