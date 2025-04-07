@@ -6,7 +6,7 @@
   "license": "MPL-2.0",
   "type": "module",
   "scripts": {
-    "dev": "encore run",
+    "dev": "encore run --watch=true",
     "build": "encore build",
     "check": "encore check"
   },
@@ -15,7 +15,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "encore.dev": "^1.46.16"
+    "encore.dev": "^1.46.16",
+    "uuid": "^11.1.0"
   },
   "packageManager": "pnpm@10.7.1"
 }
