@@ -7,7 +7,6 @@
   "type": "module",
   "scripts": {
     "dev": "encore run --watch=true",
-    "build": "encore build",
     "check": "encore check",
     "db:gen": "drizzle-kit generate --config feedback/drizzle.config.ts",
     "db:studio": "drizzle-kit studio --config feedback/drizzle-studio.config.ts"
